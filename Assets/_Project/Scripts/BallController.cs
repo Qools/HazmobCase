@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public List<BallAttributes> ballAttributes;
+    public BallAttributes selectedBall;
 
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
     public float force;
-    // Start is called before the first frame update
-    void Start()
-    {
-        SetBall();
-    }
 
     // Update is called once per frame
     void Update()
@@ -24,16 +19,30 @@ public class BallController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        EventSystem.OnBallSelected += OnBallSelected;
+    }
+
+    private void OnDisable()
+    {
+        EventSystem.OnBallSelected -= OnBallSelected;
+    }
+
+    private void OnBallSelected(BallAttributes ball)
+    {
+        selectedBall = ball;
+
+        SetBall();
+    }
+
     private void SetBall()
     {
-        foreach (var item in ballAttributes)
+        if (selectedBall.isUnlocked && selectedBall.isSelected)
         {
-            if (item.isUnlocked && item.isSelected)
-            {
-                transform.localScale = new Vector2(item.ballSize, item.ballSize);
-                spriteRenderer.color = Utility.GetColorFromString(item.ballColor);
-                rb.mass = item.ballWeight;
-            }
+            transform.localScale = new Vector2(selectedBall.ballSize, selectedBall.ballSize);
+            spriteRenderer.color = Utility.GetColorFromString(selectedBall.ballColor);
+            rb.mass = selectedBall.ballWeight;
         }
     }
 }

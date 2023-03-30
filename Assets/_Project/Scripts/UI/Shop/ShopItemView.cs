@@ -8,12 +8,12 @@ public class ShopItemView : MonoBehaviour
 {
     public BallAttributes ballAttributes;
 
-    public TextMeshProUGUI ballNameText;
-    public TextMeshProUGUI ballPriceText;
-    public Image ballImage;
+    [SerializeField] private TextMeshProUGUI ballNameText;
+    [SerializeField] private TextMeshProUGUI ballPriceText;
+    [SerializeField] private Image ballImage;
 
-    public Button buyButton;
-    public Button selectButton;
+    [SerializeField] private Button buyButton;
+    [SerializeField] private Button selectButton;
 
     private void OnEnable()
     {
@@ -24,7 +24,7 @@ public class ShopItemView : MonoBehaviour
     public void UpdateShopItem()
     {
         ballNameText.text = ballAttributes.ballName;
-        ballPriceText.text = ballAttributes.ballPrice.ToString() + " " + "Gold";
+        ballPriceText.text = ballAttributes.ballPrice.ToString() + " " + PlayerPrefKeys.gold;
         ballImage.color = Utility.GetColorFromString(ballAttributes.ballColor);
 
         RefreshButtons();
@@ -32,15 +32,14 @@ public class ShopItemView : MonoBehaviour
 
     private void OnSelectButtonClicked()
     {
-        ballAttributes.isSelected = true;
+        EventSystem.CallBallSelected(ballAttributes);
 
         RefreshButtons();
     }
 
     private void OnBuyButtonClicked()
     {
-        ballAttributes.isUnlocked = true;
-
+        EventSystem.CallBallBuy(ballAttributes);
         RefreshButtons();
     }
 
