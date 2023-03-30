@@ -6,7 +6,7 @@ using TMPro;
 
 public class ShopItemView : MonoBehaviour
 {
-    public BallAttributes ballAttributes;
+    public Ball ballAttributes;
 
     [SerializeField] private TextMeshProUGUI ballNameText;
     [SerializeField] private TextMeshProUGUI ballPriceText;

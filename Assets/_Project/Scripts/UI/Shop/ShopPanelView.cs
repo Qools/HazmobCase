@@ -1,7 +1,3 @@
-using PlayFab;
-using PlayFab.ClientModels;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +6,7 @@ using TMPro;
 public class ShopPanelView : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
-    public List<BallAttributes> ballCatalog;
+    public List<Ball> ballCatalog;
     public List<ShopItemView> shopItemViews;
 
     [SerializeField] private Button backButton;
@@ -54,10 +50,10 @@ public class ShopPanelView : MonoBehaviour
         EventSystem.OnBallCatalogRefreshed -= OnBallCatalogRefreshed;
     }
 
-    private void OnBallCatalogRefreshed(IList<BallAttributes> obj)
+    private void OnBallCatalogRefreshed(IList<Ball> obj)
     {
-        ballCatalog = new List<BallAttributes>();
-        ballCatalog = (List<BallAttributes>)obj;
+        ballCatalog = new List<Ball>();
+        ballCatalog = (List<Ball>)obj;
         
         CreateShopItems();
     }

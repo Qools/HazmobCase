@@ -23,17 +23,17 @@ public static class EventSystem
     public static Action OnBallCatalogRefresh;
     public static void CallBallCatalogRefresh() => OnBallCatalogRefresh?.Invoke();
 
-    public static Action<IList<BallAttributes>> OnBallCatalogRefreshed;
-    public static void CallBallCatalogRefreshed(List<BallAttributes> ballCatalog) { OnBallCatalogRefreshed?.Invoke(ballCatalog); }
+    public static Action<IList<Ball>> OnBallCatalogRefreshed;
+    public static void CallBallCatalogRefreshed(List<Ball> ballCatalog) { OnBallCatalogRefreshed?.Invoke(ballCatalog); }
 
     public static Action OnInventoryRefresh;
     public static void CallInventoryRefresh() => OnInventoryRefresh?.Invoke();
 
-    public static Action<BallAttributes> OnBallSelected;
-    public static void CallBallSelected(BallAttributes selectedBall) => OnBallSelected?.Invoke(selectedBall);
+    public static Action<Ball> OnBallSelected;
+    public static void CallBallSelected(Ball selectedBall) => OnBallSelected?.Invoke(selectedBall);
 
-    public static Action<BallAttributes> OnBallBuy;
-    public static void CallBallBuy(BallAttributes ballToBuy) => OnBallBuy?.Invoke(ballToBuy);
+    public static Action<Ball> OnBallBuy;
+    public static void CallBallBuy(Ball ballToBuy) => OnBallBuy?.Invoke(ballToBuy);
 
     public static Action<int> OnCurrencyRefresh;
     public static void CallCurrencyRefresh(int currency) => OnCurrencyRefresh?.Invoke(currency);

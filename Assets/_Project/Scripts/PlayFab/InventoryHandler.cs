@@ -8,11 +8,11 @@ public class InventoryHandler : MonoBehaviour
 {
     [SerializeField] private int currency;
 
-    [SerializeField] private List<BallAttributes> ballsCatalog;
+    [SerializeField] private List<Ball> ballsCatalog;
 
-    [SerializeField] private List<BallAttributes> unlockedBalls;
+    [SerializeField] private List<Ball> unlockedBalls;
 
-    private BallAttributes ballToBuy;
+    private Ball ballToBuy;
 
     private void OnEnable()
     {
@@ -49,11 +49,11 @@ public class InventoryHandler : MonoBehaviour
 
     private void OnGetCatalogItemsSuccess(GetCatalogItemsResult result)
     {
-        ballsCatalog = new List<BallAttributes>();
+        ballsCatalog = new List<Ball>();
 
         foreach (var item in result.Catalog)
         {
-            var tempCustomData = JsonUtility.FromJson<BallAttributes>(item.CustomData);
+            var tempCustomData = JsonUtility.FromJson<Ball>(item.CustomData);
 
             tempCustomData.ballID = item.ItemId;
             tempCustomData.ballName = item.DisplayName.ToString();
@@ -74,11 +74,11 @@ public class InventoryHandler : MonoBehaviour
 
     private void OnUserGetInvetorySuccess(GetUserInventoryResult result)
     {
-        unlockedBalls = new List<BallAttributes>();
+        unlockedBalls = new List<Ball>();
 
         foreach (var item in result.Inventory)
         {
-            BallAttributes tempBall = new BallAttributes
+            Ball tempBall = new Ball
             {
                 ballID = item.ItemId
             };
@@ -118,7 +118,7 @@ public class InventoryHandler : MonoBehaviour
         EventSystem.CallCurrencyRefresh(currency);
     }
 
-    private void OnBallSelected(BallAttributes ball)
+    private void OnBallSelected(Ball ball)
     {
         foreach (var item in ballsCatalog)
         {
@@ -150,7 +150,7 @@ public class InventoryHandler : MonoBehaviour
         Debug.Log("Currency " + currency);
     }
 
-    private void OnBallBuy(BallAttributes ball)
+    private void OnBallBuy(Ball ball)
     {
         ballToBuy = ball;
 

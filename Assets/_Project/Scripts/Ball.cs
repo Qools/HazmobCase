@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [System.Serializable]
-public class BallAttributes
+public class Ball
 {
     public bool isUnlocked = false;
     public bool isSelected = false;
