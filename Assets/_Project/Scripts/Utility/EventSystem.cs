@@ -19,4 +19,10 @@ public static class EventSystem
     
     public static Action OnShopPanelClosed;
     public static void CallShopPanelClosed() => OnShopPanelClosed?.Invoke();
+
+    public static Action OnInventoryRefresh;
+    public static void CallInventoryRefresh() => OnInventoryRefresh?.Invoke();
+
+    public static Action<IList<BallAttributes>> OnInventoryRefreshed;
+    public static void CallInventoryRefreshed(List<BallAttributes> ballAttributes) { OnInventoryRefreshed?.Invoke(ballAttributes); }
 }

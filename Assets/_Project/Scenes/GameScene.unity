@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &26850848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 26850850}
+  - component: {fileID: 26850849}
+  m_Layer: 0
+  m_Name: InventoryHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &26850849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26850848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78efec0d9362ca64faf52211f4f98088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &26850850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26850848}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &52630848
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,12 +828,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballAttributes:
-  - {fileID: 11400000, guid: 8f99fd3524bc29246964197a347372f0, type: 2}
-  - {fileID: 11400000, guid: 089f2a72def33c44385452c401ffe36d, type: 2}
-  - {fileID: 11400000, guid: 34a1f30ae316dbb419209f023b91d9d3, type: 2}
-  - {fileID: 11400000, guid: 465372346fd84574ab9a9c844b26e929, type: 2}
-  - {fileID: 11400000, guid: f81faf691284190489d860464497a14e, type: 2}
-  - {fileID: 11400000, guid: d55312950bca21543b310118f2acc01e, type: 2}
+  - isUnlocked: 0
+    isSelected: 0
+    ballName: 
+    ballSize: 0
+    ballWeight: 0
+    ballColor: {r: 0, g: 0, b: 0, a: 0}
+    ballPrice: 0
+  - isUnlocked: 0
+    isSelected: 0
+    ballName: 
+    ballSize: 0
+    ballWeight: 0
+    ballColor: {r: 0, g: 0, b: 0, a: 0}
+    ballPrice: 0
+  - isUnlocked: 0
+    isSelected: 0
+    ballName: 
+    ballSize: 0
+    ballWeight: 0
+    ballColor: {r: 0, g: 0, b: 0, a: 0}
+    ballPrice: 0
+  - isUnlocked: 0
+    isSelected: 0
+    ballName: 
+    ballSize: 0
+    ballWeight: 0
+    ballColor: {r: 0, g: 0, b: 0, a: 0}
+    ballPrice: 0
+  - isUnlocked: 0
+    isSelected: 0
+    ballName: 
+    ballSize: 0
+    ballWeight: 0
+    ballColor: {r: 0, g: 0, b: 0, a: 0}
+    ballPrice: 0
+  - isUnlocked: 0
+    isSelected: 0
+    ballName: 
+    ballSize: 0
+    ballWeight: 0
+    ballColor: {r: 0, g: 0, b: 0, a: 0}
+    ballPrice: 0
   shopItemViews: []
   backButton: {fileID: 624776257}
   shopContentParent: {fileID: 1682551170}
@@ -1544,6 +1624,90 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025298289}
   m_CullTransparentMesh: 1
+--- !u!1 &1104625731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1104625733}
+  - component: {fileID: 1104625732}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!212 &1104625732
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104625731}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 0.08574581, g: 0, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1104625733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1104625731}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2318465, y: 4.991067, z: 434.4304}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1114065797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1559,7 +1723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1114065798
 Transform:
   m_ObjectHideFlags: 0
@@ -2446,7 +2610,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0005203161}
+  m_AnchoredPosition: {x: 0, y: 0.0000076293945}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1682551171
@@ -3146,7 +3310,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballAttributes:
-  - {fileID: 11400000, guid: 8f99fd3524bc29246964197a347372f0, type: 2}
+  - isUnlocked: 0
+    isSelected: 0
+    ballName: 
+    ballSize: 0
+    ballWeight: 0
+    ballColor: {r: 0, g: 0, b: 0, a: 0}
+    ballPrice: 0
   rb: {fileID: 2074111818}
   spriteRenderer: {fileID: 2074111819}
   force: 100

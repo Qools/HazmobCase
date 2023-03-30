@@ -25,8 +25,7 @@ public class ShopItemView : MonoBehaviour
     {
         ballNameText.text = ballAttributes.ballName;
         ballPriceText.text = ballAttributes.ballPrice.ToString() + " " + "Gold";
-
-        ballImage.color = ballAttributes.ballColor;
+        ballImage.color = Utility.GetColorFromString(ballAttributes.ballColor);
 
         RefreshButtons();
     }

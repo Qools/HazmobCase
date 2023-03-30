@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewBall", menuName = "NewBall")]
-public class BallAttributes : ScriptableObject
+[System.Serializable]
+public class BallAttributes
 {
     public bool isUnlocked = false;
     public bool isSelected = false;
@@ -11,6 +10,6 @@ public class BallAttributes : ScriptableObject
     public string ballName;
     public float ballSize;
     public float ballWeight;
-    public Color ballColor;
+    public string ballColor;
     public float ballPrice;
 }

@@ -31,7 +31,7 @@ public class BallController : MonoBehaviour
             if (item.isUnlocked && item.isSelected)
             {
                 transform.localScale = new Vector2(item.ballSize, item.ballSize);
-                spriteRenderer.color = item.ballColor;
+                spriteRenderer.color = Utility.GetColorFromString(item.ballColor);
                 rb.mass = item.ballWeight;
             }
         }
