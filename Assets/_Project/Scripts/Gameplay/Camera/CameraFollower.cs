@@ -4,58 +4,54 @@ using UnityEngine;
 
 public class CameraFollower : MonoBehaviour
 {
-    [SerializeField] private Transform ball;
+    [SerializeField] private GameObject ball;
 
     [SerializeField] private float smoothTime = 0.25f;
 
     [SerializeField] private float depth = -10f;
 
-    private bool isGameStarted = false;
+    [SerializeField] private float offset = 2f;
 
     Vector3 currentVelocity;
+
+    float lastPosY;
 
     // Start is called before the first frame update
     void Start()
     {
-        isGameStarted = false;
 
-        ball = GameObject.FindWithTag(PlayerPrefKeys.ballTag).transform;
+        ball = GameObject.FindWithTag(PlayerPrefKeys.ballTag);
+
+        lastPosY = transform.position.y;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        if (isGameStarted)
+        if (ball == null)
+        {
+            return;
+        }
+
+        if (GameManager.Instance.isGameStarted)
         {
             currentVelocity = new Vector3(0f, ball.GetComponent<Rigidbody2D>().velocity.y, 0f);
 
             transform.position = Vector3.SmoothDamp(
                 transform.position, 
-                new Vector3(0f, ball.position.y, depth),
+                new Vector3(0f, ball.transform.position.y - offset, depth),
                 ref currentVelocity,
                 smoothTime);
+
+            transform.position = new Vector3(
+                transform.position.x,
+                Mathf.Clamp(transform.position.y, lastPosY, float.PositiveInfinity),
+                transform.position.z
+            );
+
+            lastPosY = transform.position.y;
+
+            EventSystem.CallIncreaseScore(lastPosY - offset);
         }
-    }
-
-    private void OnEnable()
-    {
-        EventSystem.OnGameStarted += OnGameStart;
-        EventSystem.OnGameOver += OnGameOver;
-    }
-
-    private void OnDisable()
-    {
-        EventSystem.OnGameStarted -= OnGameStart;
-        EventSystem.OnGameOver -= OnGameOver;
-    }
-
-    private void OnGameStart()
-    {
-        isGameStarted = true;
-    }
-
-    private void OnGameOver()
-    {
-        isGameStarted = false;
     }
 }

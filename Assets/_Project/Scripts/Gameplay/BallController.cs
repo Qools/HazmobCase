@@ -8,18 +8,8 @@ public class BallController : MonoBehaviour
 
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
-    public float force;
 
     private Vector3 lastVelocity;
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    rb.AddForce(Vector2.up * force);
-        //}
-    }
 
     private void FixedUpdate()
     {
@@ -38,12 +28,23 @@ public class BallController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.CompareTag(PlayerPrefKeys.barrier) || collision.transform.CompareTag(PlayerPrefKeys.stick))
+        if (collision.transform.CompareTag(PlayerPrefKeys.barrier))
         {
             var speed = lastVelocity.magnitude;
             var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-            rb.velocity = direction * speed;
+            rb.AddForce(direction * speed);
+        }
+
+        if (collision.transform.CompareTag(PlayerPrefKeys.stick))
+        {
+            if (collision.transform.TryGetComponent(out StickController stickController))
+            {
+                var speed = lastVelocity.magnitude;
+                var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+
+                rb.AddForce(direction * (/*speed +*/ stickController.velocity));
+            }
         }
     }
 

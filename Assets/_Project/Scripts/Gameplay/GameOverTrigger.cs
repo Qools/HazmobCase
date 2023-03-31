@@ -8,7 +8,9 @@ public class GameOverTrigger : MonoBehaviour
     {
         if (collision.CompareTag(PlayerPrefKeys.ballTag))
         {
-            EventSystem.CallGameOver();
-        }
+            if (!GameManager.Instance.isGameOver)
+            {
+                EventSystem.CallGameOver();
+            }        }
     }
 }

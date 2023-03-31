@@ -6,6 +6,9 @@ public class GameOverView : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
 
+    [SerializeField] private GameObject scoreScreen;
+    [SerializeField] private GameObject highScoreScreen;
+
     private void Awake()
     {
         if (this.TryGetComponent(out CanvasGroup _canvasGroup))

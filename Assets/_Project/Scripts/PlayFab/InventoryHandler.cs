@@ -132,24 +132,6 @@ public class InventoryHandler : MonoBehaviour
         }
     }
 
-    public void AddCurrency(int _value)
-    {
-        var request = new AddUserVirtualCurrencyRequest
-        {
-            VirtualCurrency = PlayerPrefKeys.gold,
-            Amount = _value
-        };
-
-        PlayFabClientAPI.AddUserVirtualCurrency(request, OnAddCurrencySuccess, OnError);
-    }
-
-    private void OnAddCurrencySuccess(ModifyUserVirtualCurrencyResult result)
-    {
-        currency = result.Balance;
-        EventSystem.CallCurrencyRefresh(currency);
-        Debug.Log("Currency " + currency);
-    }
-
     private void OnBallBuy(Ball ball)
     {
         ballToBuy = ball;

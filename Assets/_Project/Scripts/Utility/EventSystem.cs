@@ -37,4 +37,13 @@ public static class EventSystem
 
     public static Action<int> OnCurrencyRefresh;
     public static void CallCurrencyRefresh(int currency) => OnCurrencyRefresh?.Invoke(currency);
+
+    public static Action<float> OnIncreaseScore;
+    public static void CallIncreaseScore(float score) => OnIncreaseScore?.Invoke(score);
+
+    public static Action OnCoinPickUp;
+    public static void CallCoinPickUp() => OnCoinPickUp?.Invoke();
+
+    public static Action<int> OnCoinUIRefresh;
+    public static void CallCoinUIRefresh(int currency) => OnCoinUIRefresh?.Invoke(currency);
 }
