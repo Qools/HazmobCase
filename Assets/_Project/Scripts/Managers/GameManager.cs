@@ -5,9 +5,12 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance;
+    public LevelList levelList;
+
+    [HideInInspector]
+    public GameObject currentLevel;
 
     public int coins;
     [SerializeField] private int coinMultiplier;
@@ -18,14 +21,11 @@ public class GameManager : MonoBehaviour
     public bool isGameStarted = false;
     public bool isGameOver = false;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
+        WaitInit(Init);
+
         coins = 0;
     }
 
@@ -38,19 +38,43 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         EventSystem.OnGameStarted += OnGameStarted;
+        EventSystem.OnGameOver += OnGameOver;
+        
         EventSystem.OnIncreaseScore += OnIncreaseScore;
         EventSystem.OnCoinPickUp += OnCoinPickUp;
-        EventSystem.OnGameOver += OnGameOver;
+
+        EventSystem.OnPlayButtonPressed += LoadLevel;
     }
 
 
     private void OnDisable()
     {
         EventSystem.OnGameStarted -= OnGameStarted;
+        EventSystem.OnGameOver -= OnGameOver;
+        
         EventSystem.OnIncreaseScore -= OnIncreaseScore;
         EventSystem.OnCoinPickUp -= OnCoinPickUp;
-        EventSystem.OnGameOver -= OnGameOver;
+
+        EventSystem.OnPlayButtonPressed += LoadLevel;
     }
+
+    public void Init()
+    {
+        SetStatus(Status.ready);
+    }
+
+    public void LoadLevel()
+    {
+        if (currentLevel != null)
+        {
+            Destroy(currentLevel.gameObject);
+        }
+
+        currentLevel = Instantiate(levelList.LoopLevelsByIndex(1));
+
+        EventSystem.CallLevelLoaded();
+    }
+
     private void OnGameStarted()
     {
         isGameStarted = true;

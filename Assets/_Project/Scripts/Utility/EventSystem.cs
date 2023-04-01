@@ -5,8 +5,14 @@ using UnityEngine;
 
 public static class EventSystem
 {
+    public static Action OnLoginButtonPressed;
+    public static void CallLoginButtonPressed() => OnLoginButtonPressed?.Invoke();
+
     public static Action OnSuccesfullLogin;
     public static void CallSuccesfullLogin() => OnSuccesfullLogin?.Invoke();
+
+    public static Action OnPlayButtonPressed;
+    public static void CallPlaybuttonPressed() => OnPlayButtonPressed?.Invoke();
 
     public static Action OnGameStarted;
     public static void CallGameStarted() => OnGameStarted?.Invoke();
@@ -46,4 +52,7 @@ public static class EventSystem
 
     public static Action<int> OnCoinUIRefresh;
     public static void CallCoinUIRefresh(int currency) => OnCoinUIRefresh?.Invoke(currency);
+
+    public static Action OnLevelLoaded;
+    public static void CallLevelLoaded() => OnLevelLoaded?.Invoke();
 }

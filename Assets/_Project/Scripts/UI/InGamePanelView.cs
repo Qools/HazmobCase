@@ -25,21 +25,28 @@ public class InGamePanelView : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSystem.OnGameStarted += OnGameStarted;
+        EventSystem.OnLevelLoaded += OnLevelLoaded;
         EventSystem.OnIncreaseScore += OnIncreaseScore;
         EventSystem.OnCoinUIRefresh += OnCoinPickUp;
+        EventSystem.OnGameOver += OnGameOver;
     }
 
     private void OnDisable()
     {
-        EventSystem.OnGameStarted -= OnGameStarted;
+        EventSystem.OnLevelLoaded -= OnLevelLoaded;
         EventSystem.OnIncreaseScore -= OnIncreaseScore;
         EventSystem.OnCoinUIRefresh -= OnCoinPickUp;
+        EventSystem.OnGameOver += OnGameOver;
     }
 
-    private void OnGameStarted()
+    private void OnLevelLoaded()
     {
         Utility.EnablePanel(canvasGroup, true);
+    }
+
+    private void OnGameOver()
+    {
+        Utility.EnablePanel(canvasGroup, false);
     }
 
     private void OnIncreaseScore(float score)

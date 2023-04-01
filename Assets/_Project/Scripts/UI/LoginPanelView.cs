@@ -128,7 +128,11 @@ public class LoginPanelView : MonoBehaviour
     private void OnPlayAsGuestClicked()
     {
 
-        StatusText.text = "Logging In As Guest ...";
+        EventSystem.CallLoginButtonPressed();
+
+        Utility.EnablePanel(canvasGroup, false);
+
+        //StatusText.text = "Logging In As Guest ...";
 
         _AuthService.Authenticate(Authtypes.Silent);
     }

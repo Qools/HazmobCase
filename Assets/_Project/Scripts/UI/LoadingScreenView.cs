@@ -1,15 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class MainMenuView : MonoBehaviour
+public class LoadingScreenView : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
-
-    public Button playButton;
-    public Button shopButton;
-
 
     private void Awake()
     {
@@ -19,43 +14,48 @@ public class MainMenuView : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         Utility.EnablePanel(canvasGroup, false);
-
-        playButton.onClick.AddListener(OnPlayButtonClicked);
-        shopButton.onClick.AddListener(OnShopButtonClicked);
     }
 
     private void OnEnable()
     {
+        EventSystem.OnLoginButtonPressed += OnLoginButtonPressed;
         EventSystem.OnSuccesfullLogin += OnSuccesfullLogin;
-        EventSystem.OnShopPanelClosed += OnSuccesfullLogin;
+
+        EventSystem.OnPlayButtonPressed += OnPlayButtonPressed;
+        EventSystem.OnLevelLoaded += OnLevelLoaded;
     }
 
     private void OnDisable()
     {
+        EventSystem.OnLoginButtonPressed -= OnLoginButtonPressed;
         EventSystem.OnSuccesfullLogin -= OnSuccesfullLogin;
-        EventSystem.OnShopPanelClosed -= OnSuccesfullLogin;
+
+        EventSystem.OnPlayButtonPressed -= OnPlayButtonPressed;
+        EventSystem.OnLevelLoaded -= OnLevelLoaded;
+
     }
 
-    private void OnSuccesfullLogin()
+    private void OnLoginButtonPressed()
     {
         Utility.EnablePanel(canvasGroup, true);
     }
 
-    public void OnPlayButtonClicked()
+    private void OnSuccesfullLogin()
     {
         Utility.EnablePanel(canvasGroup, false);
-
-        EventSystem.CallPlaybuttonPressed();
     }
 
-    public void OnShopButtonClicked()
+    private void OnPlayButtonPressed()
+    {
+        Utility.EnablePanel(canvasGroup, true);
+    }
+
+    private void OnLevelLoaded()
     {
         Utility.EnablePanel(canvasGroup, false);
-
-        EventSystem.CallShopPanelOpened();
     }
+
 }

@@ -14,6 +14,11 @@ public class InventoryHandler : MonoBehaviour
 
     private Ball ballToBuy;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
     private void OnEnable()
     {
         EventSystem.OnSuccesfullLogin += GetBallCatalog;
