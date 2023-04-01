@@ -10,4 +10,8 @@ public class PlayerPrefKeys : MonoBehaviour
 
     public const string gold = "GC";
     public const string ballID = "BallID";
+    public const string leaderBoardName = "HighScore";
+
+    public const string scoreText = "SCORE";
+    public const string highScoreText = "NEW HIGH SCORE";
 }

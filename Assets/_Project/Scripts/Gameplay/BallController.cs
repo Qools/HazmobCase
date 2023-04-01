@@ -9,6 +9,7 @@ public class BallController : MonoBehaviour
     public Rigidbody2D rb;
     public SpriteRenderer spriteRenderer;
     public TrailRenderer trailRenderer;
+    public Collider2D ballCollider;
 
     private Vector3 lastVelocity;
 
@@ -21,12 +22,14 @@ public class BallController : MonoBehaviour
     {
         EventSystem.OnLevelLoaded += SetBall;
         EventSystem.OnGameStarted += OnGameStarted;
+        EventSystem.OnGameOver += OnGameOver;
     }
 
     private void OnDisable()
     {
         EventSystem.OnLevelLoaded -= SetBall;
         EventSystem.OnGameStarted -= OnGameStarted;
+        EventSystem.OnGameOver -= OnGameOver;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -36,7 +39,7 @@ public class BallController : MonoBehaviour
             var speed = lastVelocity.magnitude;
             var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-            rb.AddForce(direction * speed);
+            rb.AddForce(direction * speed, ForceMode2D.Force);
         }
 
         if (collision.transform.CompareTag(PlayerPrefKeys.stick))
@@ -46,7 +49,7 @@ public class BallController : MonoBehaviour
                 var speed = lastVelocity.magnitude;
                 var direction = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
 
-                rb.AddForce(direction * (speed + stickController.velocity));
+                rb.AddForce(direction * (speed + stickController.velocity), ForceMode2D.Force);
             }
         }
     }
@@ -76,8 +79,8 @@ public class BallController : MonoBehaviour
             alphaKey = new GradientAlphaKey[3];
             alphaKey[0].alpha = 1.0f;
             alphaKey[0].time = 0.0f;
-            alphaKey[1].alpha = 0.36f;
-            alphaKey[1].time = 0.66f;
+            alphaKey[1].alpha = 0.1f;
+            alphaKey[1].time = 0.33f;
             alphaKey[2].alpha = 0.0f;
             alphaKey[2].time = 1.0f;
 
@@ -97,8 +100,8 @@ public class BallController : MonoBehaviour
     {
         rb.simulated = true;
 
-        Vector2 negativeRandom = new Vector2(Random.Range(-10f, -5f), 5);
-        Vector2 positiveRandom = new Vector2(Random.Range(5f, 10f), 5);
+        Vector2 negativeRandom = new Vector2(Random.Range(-10f, -8f), 5);
+        Vector2 positiveRandom = new Vector2(Random.Range(8f, 10f), 5);
 
         List<Vector2> values = new List<Vector2>();
         values.Add(negativeRandom);
@@ -113,5 +116,11 @@ public class BallController : MonoBehaviour
         {
             cameraFollower.ball = gameObject;
         }
+    }
+
+    private void OnGameOver()
+    {
+        rb.simulated = false;
+        ballCollider.isTrigger = false;
     }
 }

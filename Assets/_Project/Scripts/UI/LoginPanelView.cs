@@ -27,7 +27,7 @@ public class LoginPanelView : MonoBehaviour
     {
         if (ClearPlayerPrefs)
         {
-            //_AuthService.UnlinkSilentAuth();
+            _AuthService.UnlinkSilentAuth();
             _AuthService.ClearRememberMe();
             _AuthService.AuthType = Authtypes.None;
         }

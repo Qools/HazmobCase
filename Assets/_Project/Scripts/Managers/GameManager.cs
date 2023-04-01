@@ -41,6 +41,8 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
+        EventSystem.OnSuccesfullLogin += GetLeaderBoard;
+
         EventSystem.OnGameStarted += OnGameStarted;
         EventSystem.OnGameOver += OnGameOver;
         
@@ -56,6 +58,8 @@ public class GameManager : Singleton<GameManager>
 
     private void OnDisable()
     {
+        EventSystem.OnSuccesfullLogin += GetLeaderBoard;
+
         EventSystem.OnGameStarted -= OnGameStarted;
         EventSystem.OnGameOver -= OnGameOver;
         
@@ -81,10 +85,6 @@ public class GameManager : Singleton<GameManager>
         }
 
         currentLevel = Instantiate(levelList.LoopLevelsByIndex(1));
-
-        //EventSystem.CallLevelLoaded();
-        //EventSystem.CallCoinUIRefresh(coins);
-        //EventSystem.CallScoreChange(score);
 
         StartCoroutine(WaitForLevelLoad());
     }
@@ -167,5 +167,25 @@ public class GameManager : Singleton<GameManager>
     private void OnBallSelected(Ball ball)
     {
         selectedBall = ball;
+    }
+
+    private void GetLeaderBoard()
+    {
+        var request = new GetPlayerStatisticsRequest
+        {
+            StatisticNames = new List<string>()
+            {
+                PlayerPrefKeys.leaderBoardName
+            }
+        };
+
+        PlayFabClientAPI.GetPlayerStatistics(request, OnGetPlayerStatisticsSuccess, OnError);
+    }
+
+    private void OnGetPlayerStatisticsSuccess(GetPlayerStatisticsResult result)
+    {
+        highScore = result.Statistics[0].Value;
+
+        Debug.Log(highScore);
     }
 }

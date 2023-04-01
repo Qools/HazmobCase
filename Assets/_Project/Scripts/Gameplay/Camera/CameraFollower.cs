@@ -10,16 +10,20 @@ public class CameraFollower : MonoBehaviour
 
     [SerializeField] private float depth = -10f;
 
-    [SerializeField] private float offset = 2f;
+    [SerializeField] private int offset = 2;
 
     Vector3 currentVelocity;
 
     float lastPosY;
 
+    private float startHeight;
+
     // Start is called before the first frame update
     void Start()
     {
         lastPosY = transform.position.y;
+
+        startHeight = transform.position.y;
     }
 
     // Update is called once per frame
@@ -48,7 +52,28 @@ public class CameraFollower : MonoBehaviour
 
             lastPosY = transform.position.y;
 
-            EventSystem.CallScoreChange(lastPosY - offset);
+            EventSystem.CallScoreChange((int)lastPosY - offset);
         }
+    }
+
+    private void OnEnable()
+    {
+        EventSystem.OnRetryButtonPressed += OnRetryButtonPressed;
+    }
+
+    private void OnDisable()
+    {
+        EventSystem.OnRetryButtonPressed -= OnRetryButtonPressed;
+    }
+
+    private void OnRetryButtonPressed()
+    {
+        lastPosY = startHeight;
+
+        transform.position = new Vector3(
+                transform.position.x,
+                startHeight,
+                transform.position.z
+            );
     }
 }
