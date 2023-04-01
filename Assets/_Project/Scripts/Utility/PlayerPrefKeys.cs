@@ -9,5 +9,5 @@ public class PlayerPrefKeys : MonoBehaviour
     public const string barrier = "Barrier";
 
     public const string gold = "GC";
-    public const string defaultBall = "Ball1";
+    public const string ballID = "BallID";
 }

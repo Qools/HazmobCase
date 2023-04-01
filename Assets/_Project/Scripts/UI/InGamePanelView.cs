@@ -25,21 +25,21 @@ public class InGamePanelView : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSystem.OnLevelLoaded += OnLevelLoaded;
-        EventSystem.OnIncreaseScore += OnIncreaseScore;
+        EventSystem.OnGameStarted += OnGameStarted;
+        EventSystem.OnScoreChange += OnScoreChange;
         EventSystem.OnCoinUIRefresh += OnCoinPickUp;
         EventSystem.OnGameOver += OnGameOver;
     }
 
     private void OnDisable()
     {
-        EventSystem.OnLevelLoaded -= OnLevelLoaded;
-        EventSystem.OnIncreaseScore -= OnIncreaseScore;
+        EventSystem.OnGameStarted -= OnGameStarted;
+        EventSystem.OnScoreChange -= OnScoreChange;
         EventSystem.OnCoinUIRefresh -= OnCoinPickUp;
         EventSystem.OnGameOver += OnGameOver;
     }
 
-    private void OnLevelLoaded()
+    private void OnGameStarted()
     {
         Utility.EnablePanel(canvasGroup, true);
     }
@@ -49,7 +49,7 @@ public class InGamePanelView : MonoBehaviour
         Utility.EnablePanel(canvasGroup, false);
     }
 
-    private void OnIncreaseScore(float score)
+    private void OnScoreChange(float score)
     {
         scoreText.text = score.ToString("F0") + "m";
     }

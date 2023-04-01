@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverView : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameOverView : MonoBehaviour
 
     [SerializeField] private GameObject scoreScreen;
     [SerializeField] private GameObject highScoreScreen;
+
+    [SerializeField] private Button retryButton;
 
     private void Awake()
     {
@@ -20,6 +23,8 @@ public class GameOverView : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        retryButton.onClick.AddListener(OnRetryButtonClicked);
+
         Utility.EnablePanel(canvasGroup, false);
     }
 
@@ -36,5 +41,12 @@ public class GameOverView : MonoBehaviour
     private void OnGameOver()
     {
         Utility.EnablePanel(canvasGroup, true);
+    }
+
+    private void OnRetryButtonClicked()
+    {
+        EventSystem.CallRetryButtonPressed();
+
+        Utility.EnablePanel(canvasGroup, false);
     }
 }

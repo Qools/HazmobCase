@@ -22,7 +22,7 @@ public class LoadingScreenView : MonoBehaviour
     private void OnEnable()
     {
         EventSystem.OnLoginButtonPressed += OnLoginButtonPressed;
-        EventSystem.OnSuccesfullLogin += OnSuccesfullLogin;
+        EventSystem.OnBallCatalogRefreshed += OnInventoryLoad;
 
         EventSystem.OnPlayButtonPressed += OnPlayButtonPressed;
         EventSystem.OnLevelLoaded += OnLevelLoaded;
@@ -31,7 +31,7 @@ public class LoadingScreenView : MonoBehaviour
     private void OnDisable()
     {
         EventSystem.OnLoginButtonPressed -= OnLoginButtonPressed;
-        EventSystem.OnSuccesfullLogin -= OnSuccesfullLogin;
+        EventSystem.OnBallCatalogRefreshed -= OnInventoryLoad;
 
         EventSystem.OnPlayButtonPressed -= OnPlayButtonPressed;
         EventSystem.OnLevelLoaded -= OnLevelLoaded;
@@ -43,7 +43,7 @@ public class LoadingScreenView : MonoBehaviour
         Utility.EnablePanel(canvasGroup, true);
     }
 
-    private void OnSuccesfullLogin()
+    private void OnInventoryLoad(IList<Ball> balls)
     {
         Utility.EnablePanel(canvasGroup, false);
     }

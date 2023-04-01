@@ -85,7 +85,8 @@ public class InventoryHandler : MonoBehaviour
         {
             Ball tempBall = new Ball
             {
-                ballID = item.ItemId
+                ballID = item.ItemId,
+                isUnlocked = true
             };
 
             unlockedBalls.Add(tempBall);
@@ -98,10 +99,17 @@ public class InventoryHandler : MonoBehaviour
                 if(ballsCatalog[i].ballID == unlockedBalls[j].ballID)
                 {
                     ballsCatalog[i].isUnlocked = true;
-                }
 
+                    unlockedBalls[j].ballColor = ballsCatalog[i].ballColor;
+                    unlockedBalls[j].ballWeight = ballsCatalog[i].ballWeight;
+                    unlockedBalls[j].ballSize = ballsCatalog[i].ballSize;
+
+                }
             }
         }
+
+        GetSelectedBall(unlockedBalls);
+
         EventSystem.CallBallCatalogRefreshed(ballsCatalog);
         Debug.Log("Invetory Loaded");
     }
@@ -130,6 +138,8 @@ public class InventoryHandler : MonoBehaviour
             if (ball.ballID == item.ballID)
             {
                 item.isSelected = true;
+                PlayerPrefs.SetString(PlayerPrefKeys.ballID, item.ballID);
+
                 return;
             }
 
@@ -168,5 +178,29 @@ public class InventoryHandler : MonoBehaviour
     private void OnPurchaseItemError(PlayFabError error)
     {
         Debug.Log(error);
+    }
+
+    private void GetSelectedBall(List<Ball> unlockedBalls)
+    {
+        if (unlockedBalls.Count == 1)
+        {
+            unlockedBalls[0].isSelected = true;
+
+            PlayerPrefs.SetString(PlayerPrefKeys.ballID, unlockedBalls[0].ballID);
+
+            EventSystem.CallBallSelected(unlockedBalls[0]);
+        }
+
+        else
+        {
+            foreach (var item in unlockedBalls)
+            {
+                if (item.ballID == PlayerPrefs.GetString(PlayerPrefKeys.ballID))
+                {
+                    item.isSelected = true;
+                    EventSystem.CallBallSelected(item);
+                }
+            }
+        }
     }
 }

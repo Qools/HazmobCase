@@ -21,12 +21,16 @@ public class GameManager : Singleton<GameManager>
     public bool isGameStarted = false;
     public bool isGameOver = false;
 
+    public Ball selectedBall;
+
+
     // Start is called before the first frame update
     void Start()
     {
         WaitInit(Init);
 
         coins = 0;
+        score = 0;
     }
 
     // Update is called once per frame
@@ -40,10 +44,13 @@ public class GameManager : Singleton<GameManager>
         EventSystem.OnGameStarted += OnGameStarted;
         EventSystem.OnGameOver += OnGameOver;
         
-        EventSystem.OnIncreaseScore += OnIncreaseScore;
+        EventSystem.OnScoreChange += OnScoreChange;
         EventSystem.OnCoinPickUp += OnCoinPickUp;
 
         EventSystem.OnPlayButtonPressed += LoadLevel;
+        EventSystem.OnRetryButtonPressed += OnRetry;
+
+        EventSystem.OnBallSelected += OnBallSelected;
     }
 
 
@@ -52,10 +59,13 @@ public class GameManager : Singleton<GameManager>
         EventSystem.OnGameStarted -= OnGameStarted;
         EventSystem.OnGameOver -= OnGameOver;
         
-        EventSystem.OnIncreaseScore -= OnIncreaseScore;
+        EventSystem.OnScoreChange -= OnScoreChange;
         EventSystem.OnCoinPickUp -= OnCoinPickUp;
 
-        EventSystem.OnPlayButtonPressed += LoadLevel;
+        EventSystem.OnPlayButtonPressed -= LoadLevel;
+        EventSystem.OnRetryButtonPressed -= OnRetry;
+
+        EventSystem.OnBallSelected -= OnBallSelected;
     }
 
     public void Init()
@@ -72,7 +82,21 @@ public class GameManager : Singleton<GameManager>
 
         currentLevel = Instantiate(levelList.LoopLevelsByIndex(1));
 
+        //EventSystem.CallLevelLoaded();
+        //EventSystem.CallCoinUIRefresh(coins);
+        //EventSystem.CallScoreChange(score);
+
+        StartCoroutine(WaitForLevelLoad());
+    }
+
+    private IEnumerator WaitForLevelLoad()
+    {
+        yield return new WaitWhile(() => currentLevel == null);
+
+
         EventSystem.CallLevelLoaded();
+        EventSystem.CallCoinUIRefresh(coins);
+        EventSystem.CallScoreChange(score);
     }
 
     private void OnGameStarted()
@@ -83,7 +107,7 @@ public class GameManager : Singleton<GameManager>
         EventSystem.CallCoinUIRefresh(coins);
     }
 
-    private void OnIncreaseScore(float _score)
+    private void OnScoreChange(float _score)
     {
         score = (int)_score;
     }
@@ -101,6 +125,20 @@ public class GameManager : Singleton<GameManager>
 
         int value = coins * coinMultiplier;
         AddCurrency(value);
+    }
+
+    private void OnRetry()
+    {
+        LoadLevel();
+
+        isGameStarted = false;
+        isGameOver = false;
+
+        score = 0;
+        coins = 0;
+
+        EventSystem.CallCoinUIRefresh(coins);
+        EventSystem.CallScoreChange(score);
     }
 
     public void AddCurrency(int _value)
@@ -124,5 +162,10 @@ public class GameManager : Singleton<GameManager>
     private void OnError(PlayFabError error)
     {
         Debug.Log(error.Error);
+    }
+
+    private void OnBallSelected(Ball ball)
+    {
+        selectedBall = ball;
     }
 }

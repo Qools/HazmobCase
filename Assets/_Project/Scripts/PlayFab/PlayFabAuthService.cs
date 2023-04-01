@@ -433,7 +433,8 @@ public class PlayFabAuthService
         PlayFabClientAPI.LoginWithCustomID(new LoginWithCustomIDRequest()
         {
             TitleId = PlayFabSettings.TitleId,
-            CustomId = SystemInfo.deviceUniqueIdentifier,
+            //CustomId = SystemInfo.deviceUniqueIdentifier,
+            CustomId = SystemInfo.graphicsDeviceID.ToString() + SystemInfo.deviceUniqueIdentifier,
             CreateAccount = true,
             InfoRequestParameters = InfoRequestParams
         }, (result) => {

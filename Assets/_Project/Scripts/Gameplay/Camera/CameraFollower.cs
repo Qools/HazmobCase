@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraFollower : MonoBehaviour
 {
-    [SerializeField] private GameObject ball;
+    public GameObject ball;
 
     [SerializeField] private float smoothTime = 0.25f;
 
@@ -19,9 +19,6 @@ public class CameraFollower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        ball = GameObject.FindWithTag(PlayerPrefKeys.ballTag);
-
         lastPosY = transform.position.y;
     }
 
@@ -51,7 +48,7 @@ public class CameraFollower : MonoBehaviour
 
             lastPosY = transform.position.y;
 
-            EventSystem.CallIncreaseScore(lastPosY - offset);
+            EventSystem.CallScoreChange(lastPosY - offset);
         }
     }
 }
